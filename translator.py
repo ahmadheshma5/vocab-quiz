@@ -262,6 +262,7 @@ lag
 relish
 liable
 stray
+play
 """
 words = [w.strip() for w in raw_words.splitlines() if w.strip()]
 
