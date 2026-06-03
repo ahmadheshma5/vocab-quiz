@@ -1,0 +1,1042 @@
+[
+  {
+    "english": "carry on",
+    "arabic": "حمل"
+  },
+  {
+    "english": "hand sth in",
+    "arabic": "يد في"
+  },
+  {
+    "english": "look after sb/sth",
+    "arabic": "اعتني بـ sb/sth"
+  },
+  {
+    "english": "put sth off",
+    "arabic": "تأجيل شيء ما"
+  },
+  {
+    "english": "choice",
+    "arabic": "خيار"
+  },
+  {
+    "english": "choose",
+    "arabic": "يختار"
+  },
+  {
+    "english": "complain",
+    "arabic": "يشتكي"
+  },
+  {
+    "english": "complaint",
+    "arabic": "شكوى"
+  },
+  {
+    "english": "decide",
+    "arabic": "يقرر"
+  },
+  {
+    "english": "decision",
+    "arabic": "قرار"
+  },
+  {
+    "english": "deliver",
+    "arabic": "يسلم"
+  },
+  {
+    "english": "delivery",
+    "arabic": "توصيل"
+  },
+  {
+    "english": "describe",
+    "arabic": "يصف"
+  },
+  {
+    "english": "description",
+    "arabic": "وصف"
+  },
+  {
+    "english": "enjoy",
+    "arabic": "يتمتع"
+  },
+  {
+    "english": "enjoyment",
+    "arabic": "التمتع"
+  },
+  {
+    "english": "explain",
+    "arabic": "يشرح"
+  },
+  {
+    "english": "explanation",
+    "arabic": "توضيح"
+  },
+  {
+    "english": "queue",
+    "arabic": "طابور"
+  },
+  {
+    "english": "queue (up)",
+    "arabic": "قائمة الانتظار (أعلى)"
+  },
+  {
+    "english": "change sb's mind",
+    "arabic": "غير رأي بينالي الشارقة"
+  },
+  {
+    "english": "exchange",
+    "arabic": "تبادل"
+  },
+  {
+    "english": "refund",
+    "arabic": "استرداد"
+  },
+  {
+    "english": "replace",
+    "arabic": "يستبدل"
+  },
+  {
+    "english": "return",
+    "arabic": "يعود"
+  },
+  {
+    "english": "right away",
+    "arabic": "فورا"
+  },
+  {
+    "english": "sorry",
+    "arabic": "آسف"
+  },
+  {
+    "english": "go round",
+    "arabic": "جولة"
+  },
+  {
+    "english": "break up",
+    "arabic": "انفصل"
+  },
+  {
+    "english": "come round",
+    "arabic": "تعال"
+  },
+  {
+    "english": "feel like sth",
+    "arabic": "أشعر وكأنني شيء"
+  },
+  {
+    "english": "join in",
+    "arabic": "انضم"
+  },
+  {
+    "english": "pass sth on",
+    "arabic": "تمرير شيء على"
+  },
+  {
+    "english": "turn sth down",
+    "arabic": "اتجه للأسفل"
+  },
+  {
+    "english": "action film",
+    "arabic": "فيلم اكشن"
+  },
+  {
+    "english": "bookshop",
+    "arabic": "مكتبة"
+  },
+  {
+    "english": "film poster",
+    "arabic": "ملصق الفيلم"
+  },
+  {
+    "english": "science fiction",
+    "arabic": "الخيال العلمي"
+  },
+  {
+    "english": "soundtrack",
+    "arabic": "الموسيقى التصويرية"
+  },
+  {
+    "english": "accidentally",
+    "arabic": "بطريق الخطأ"
+  },
+  {
+    "english": "amazingly",
+    "arabic": "بشكل مثير للدهشة"
+  },
+  {
+    "english": "as expected",
+    "arabic": "كما هو متوقع"
+  },
+  {
+    "english": "by chance",
+    "arabic": "بالصدفة"
+  },
+  {
+    "english": "fortunately",
+    "arabic": "لحسن الحظ"
+  },
+  {
+    "english": "luckily",
+    "arabic": "لحسن الحظ"
+  },
+  {
+    "english": "on purpose",
+    "arabic": "عن قصد"
+  },
+  {
+    "english": "surprisingly",
+    "arabic": "بشكل مدهش"
+  },
+  {
+    "english": "unfortunately",
+    "arabic": "للأسف"
+  },
+  {
+    "english": "down the corridor",
+    "arabic": "أسفل الممر"
+  },
+  {
+    "english": "downstairs",
+    "arabic": "في الطابق السفلي"
+  },
+  {
+    "english": "on the (second) floor",
+    "arabic": "في الطابق (الثاني)."
+  },
+  {
+    "english": "over there",
+    "arabic": "هناك"
+  },
+  {
+    "english": "round the corner",
+    "arabic": "حول الزاوية"
+  },
+  {
+    "english": "straight ahead",
+    "arabic": "إلى الأمام مباشرة"
+  },
+  {
+    "english": "take the lift",
+    "arabic": "خذ المصعد"
+  },
+  {
+    "english": "through",
+    "arabic": "خلال"
+  },
+  {
+    "english": "address book",
+    "arabic": "دفتر العناوين"
+  },
+  {
+    "english": "bookshelf",
+    "arabic": "رف الكتب"
+  },
+  {
+    "english": "bread knife",
+    "arabic": "سكين الخبز"
+  },
+  {
+    "english": "car door",
+    "arabic": "باب السيارة"
+  },
+  {
+    "english": "car park",
+    "arabic": "موقف سيارات"
+  },
+  {
+    "english": "city centre",
+    "arabic": "وسط المدينة"
+  },
+  {
+    "english": "coffee cup",
+    "arabic": "فنجان قهوة"
+  },
+  {
+    "english": "computer game",
+    "arabic": "لعبة كمبيوتر"
+  },
+  {
+    "english": "computer screen",
+    "arabic": "شاشة الكمبيوتر"
+  },
+  {
+    "english": "key ring",
+    "arabic": "حلقة مفاتيح"
+  },
+  {
+    "english": "kitchen door",
+    "arabic": "باب المطبخ"
+  },
+  {
+    "english": "mountain climbing",
+    "arabic": "تسلق الجبال"
+  },
+  {
+    "english": "mountaintop",
+    "arabic": "قمة الجبل"
+  },
+  {
+    "english": "rock climbing",
+    "arabic": "تسلق الصخور"
+  },
+  {
+    "english": "shoe shop",
+    "arabic": "متجر الأحذية"
+  },
+  {
+    "english": "shopping centre",
+    "arabic": "مركز التسوق"
+  },
+  {
+    "english": "teabag",
+    "arabic": "كيس شاي"
+  },
+  {
+    "english": "teacup",
+    "arabic": "فنجان شاي"
+  },
+  {
+    "english": "television programme",
+    "arabic": "برنامج تلفزيوني"
+  },
+  {
+    "english": "TV screen",
+    "arabic": "شاشة تلفزيون"
+  },
+  {
+    "english": "TV star",
+    "arabic": "نجم التلفزيون"
+  },
+  {
+    "english": "video game",
+    "arabic": "لعبة فيديو"
+  },
+  {
+    "english": "bottle top",
+    "arabic": "أعلى الزجاجة"
+  },
+  {
+    "english": "cash machine",
+    "arabic": "آلة النقدية"
+  },
+  {
+    "english": "kitchen knife",
+    "arabic": "سكين المطبخ"
+  },
+  {
+    "english": "road sign",
+    "arabic": "علامة الطريق"
+  },
+  {
+    "english": "rock star",
+    "arabic": "نجم الروك"
+  },
+  {
+    "english": "shopping bag",
+    "arabic": "كيس التسوق"
+  },
+  {
+    "english": "street light",
+    "arabic": "ضوء الشارع"
+  },
+  {
+    "english": "ticket office",
+    "arabic": "مكتب التذاكر"
+  },
+  {
+    "english": "bee",
+    "arabic": "نحلة"
+  },
+  {
+    "english": "camel",
+    "arabic": "جمل"
+  },
+  {
+    "english": "gorilla",
+    "arabic": "غوريلا"
+  },
+  {
+    "english": "mosquito",
+    "arabic": "البعوض"
+  },
+  {
+    "english": "parrot",
+    "arabic": "ببغاء"
+  },
+  {
+    "english": "spider",
+    "arabic": "العنكبوت"
+  },
+  {
+    "english": "tiger",
+    "arabic": "نمر"
+  },
+  {
+    "english": "whale",
+    "arabic": "حوت"
+  },
+  {
+    "english": "definitely",
+    "arabic": "قطعاً"
+  },
+  {
+    "english": "disagree",
+    "arabic": "لا أوافق"
+  },
+  {
+    "english": "exactly",
+    "arabic": "بالضبط"
+  },
+  {
+    "english": "right",
+    "arabic": "يمين"
+  },
+  {
+    "english": "true",
+    "arabic": "حقيقي"
+  },
+  {
+    "english": "confident",
+    "arabic": "واثق"
+  },
+  {
+    "english": "creative",
+    "arabic": "مبدع"
+  },
+  {
+    "english": "easygoing",
+    "arabic": "عيشة رغيدة"
+  },
+  {
+    "english": "fair",
+    "arabic": "عدل"
+  },
+  {
+    "english": "fun",
+    "arabic": "هزار"
+  },
+  {
+    "english": "patient",
+    "arabic": "مريض"
+  },
+  {
+    "english": "serious",
+    "arabic": "جاد"
+  },
+  {
+    "english": "shy",
+    "arabic": "خجول"
+  },
+  {
+    "english": "sociable",
+    "arabic": "مؤنس"
+  },
+  {
+    "english": "strict",
+    "arabic": "حازم"
+  },
+  {
+    "english": "anxious",
+    "arabic": "قلق"
+  },
+  {
+    "english": "careless",
+    "arabic": "مهمل"
+  },
+  {
+    "english": "funny",
+    "arabic": "مضحك"
+  },
+  {
+    "english": "generous",
+    "arabic": "كريم"
+  },
+  {
+    "english": "honest",
+    "arabic": "أمين"
+  },
+  {
+    "english": "reliable",
+    "arabic": "موثوق"
+  },
+  {
+    "english": "selfish",
+    "arabic": "أنانية"
+  },
+  {
+    "english": "sensible",
+    "arabic": "منطقي"
+  },
+  {
+    "english": "air pollution",
+    "arabic": "تلوث الهواء"
+  },
+  {
+    "english": "local residents",
+    "arabic": "السكان المحليين"
+  },
+  {
+    "english": "parking space",
+    "arabic": "مكان لوقوف السيارات"
+  },
+  {
+    "english": "public transport",
+    "arabic": "وسائل النقل العام"
+  },
+  {
+    "english": "quality of life",
+    "arabic": "نوعية الحياة"
+  },
+  {
+    "english": "traffic congestion",
+    "arabic": "الازدحام المروري"
+  },
+  {
+    "english": "urban development",
+    "arabic": "التنمية الحضرية"
+  },
+  {
+    "english": "cast",
+    "arabic": "يقذف"
+  },
+  {
+    "english": "script",
+    "arabic": "script"
+  },
+  {
+    "english": "shot",
+    "arabic": "طلقة"
+  },
+  {
+    "english": "soundtrack",
+    "arabic": "الموسيقى التصويرية"
+  },
+  {
+    "english": "attic",
+    "arabic": "علية"
+  },
+  {
+    "english": "basement",
+    "arabic": "الطابق السفلي"
+  },
+  {
+    "english": "bungalow",
+    "arabic": "بنغل"
+  },
+  {
+    "english": "cellar",
+    "arabic": "قبو"
+  },
+  {
+    "english": "chimney",
+    "arabic": "مدخنة"
+  },
+  {
+    "english": "cottage",
+    "arabic": "كوخ"
+  },
+  {
+    "english": "detached",
+    "arabic": "منفصل"
+  },
+  {
+    "english": "fence",
+    "arabic": "سور"
+  },
+  {
+    "english": "passage",
+    "arabic": "ممر"
+  },
+  {
+    "english": "semi-detached",
+    "arabic": "شبه منفصلة"
+  },
+  {
+    "english": "terrace",
+    "arabic": "شرفة"
+  },
+  {
+    "english": "terraced house",
+    "arabic": "منزل المدرجات"
+  },
+  {
+    "english": "broadcast",
+    "arabic": "إذاعة"
+  },
+  {
+    "english": "capture",
+    "arabic": "يأسر"
+  },
+  {
+    "english": "cut",
+    "arabic": "يقطع"
+  },
+  {
+    "english": "editor",
+    "arabic": "محرر"
+  },
+  {
+    "english": "episode",
+    "arabic": "حلقة"
+  },
+  {
+    "english": "presenter",
+    "arabic": "مقدم"
+  },
+  {
+    "english": "release",
+    "arabic": "يطلق"
+  },
+  {
+    "english": "series",
+    "arabic": "مسلسل"
+  },
+  {
+    "english": "award a grant",
+    "arabic": "منح منحة"
+  },
+  {
+    "english": "budget",
+    "arabic": "ميزانية"
+  },
+  {
+    "english": "debit an account",
+    "arabic": "الخصم من الحساب"
+  },
+  {
+    "english": "debt",
+    "arabic": "دَين"
+  },
+  {
+    "english": "donate to a charity",
+    "arabic": "التبرع لجمعية خيرية"
+  },
+  {
+    "english": "donation",
+    "arabic": "هبة"
+  },
+  {
+    "english": "finance a project",
+    "arabic": "تمويل مشروع"
+  },
+  {
+    "english": "income",
+    "arabic": "دخل"
+  },
+  {
+    "english": "interest rate",
+    "arabic": "سعر الفائدة"
+  },
+  {
+    "english": "investment",
+    "arabic": "استثمار"
+  },
+  {
+    "english": "make a living",
+    "arabic": "كسب العيش"
+  },
+  {
+    "english": "pay sth off",
+    "arabic": "دفع شيء قبالة"
+  },
+  {
+    "english": "put aside savings",
+    "arabic": "ضع المدخرات جانبا"
+  },
+  {
+    "english": "savings",
+    "arabic": "المدخرات"
+  },
+  {
+    "english": "bribe",
+    "arabic": "رشوة"
+  },
+  {
+    "english": "bribery",
+    "arabic": "رشوة"
+  },
+  {
+    "english": "burglar",
+    "arabic": "لص"
+  },
+  {
+    "english": "burglary",
+    "arabic": "السطو"
+  },
+  {
+    "english": "burgle",
+    "arabic": "سطا"
+  },
+  {
+    "english": "cheat",
+    "arabic": "يغش"
+  },
+  {
+    "english": "cheat",
+    "arabic": "يغش"
+  },
+  {
+    "english": "cheating",
+    "arabic": "الغش"
+  },
+  {
+    "english": "kidnap",
+    "arabic": "خطف"
+  },
+  {
+    "english": "kidnapper",
+    "arabic": "الخاطف"
+  },
+  {
+    "english": "kidnapping",
+    "arabic": "خطف"
+  },
+  {
+    "english": "liar",
+    "arabic": "كذاب"
+  },
+  {
+    "english": "lie",
+    "arabic": "كذب"
+  },
+  {
+    "english": "lying",
+    "arabic": "يكذب"
+  },
+  {
+    "english": "murder",
+    "arabic": "قتل"
+  },
+  {
+    "english": "murder",
+    "arabic": "قتل"
+  },
+  {
+    "english": "murderer",
+    "arabic": "قاتل"
+  },
+  {
+    "english": "rob",
+    "arabic": "rob"
+  },
+  {
+    "english": "robber",
+    "arabic": "السارق"
+  },
+  {
+    "english": "robbery",
+    "arabic": "سرقة"
+  },
+  {
+    "english": "shoplift",
+    "arabic": "سرقة من متجر"
+  },
+  {
+    "english": "shoplifter",
+    "arabic": "السارق"
+  },
+  {
+    "english": "shoplifting",
+    "arabic": "سرقة المتاجر"
+  },
+  {
+    "english": "steal",
+    "arabic": "يسرق"
+  },
+  {
+    "english": "theft",
+    "arabic": "سرقة"
+  },
+  {
+    "english": "thief",
+    "arabic": "لص"
+  },
+  {
+    "english": "accuse sb of sth",
+    "arabic": "يتهم بينالي الشارقة بشيء"
+  },
+  {
+    "english": "arrest",
+    "arabic": "اعتقال"
+  },
+  {
+    "english": "break into sth",
+    "arabic": "اقتحام شيء"
+  },
+  {
+    "english": "court",
+    "arabic": "محكمة"
+  },
+  {
+    "english": "give evidence",
+    "arabic": "تقديم الأدلة"
+  },
+  {
+    "english": "guilty",
+    "arabic": "مذنب"
+  },
+  {
+    "english": "judge",
+    "arabic": "يحكم على"
+  },
+  {
+    "english": "jury",
+    "arabic": "هيئة المحلفين"
+  },
+  {
+    "english": "sentence",
+    "arabic": "جملة"
+  },
+  {
+    "english": "trial",
+    "arabic": "محاكمة"
+  },
+  {
+    "english": "verdict",
+    "arabic": "الحكم"
+  },
+  {
+    "english": "witness",
+    "arabic": "شاهد"
+  },
+  {
+    "english": "demolish",
+    "arabic": "هدم"
+  },
+  {
+    "english": "clue",
+    "arabic": "فكرة"
+  },
+  {
+    "english": "cryptic",
+    "arabic": "خفي"
+  },
+  {
+    "english": "dominate",
+    "arabic": "تهيمن"
+  },
+  {
+    "english": "elegant",
+    "arabic": "رائع"
+  },
+  {
+    "english": "urge",
+    "arabic": "يحث"
+  },
+  {
+    "english": "symbolize",
+    "arabic": "يرمز"
+  },
+  {
+    "english": "adorn",
+    "arabic": "تزين"
+  },
+  {
+    "english": "gorgeous",
+    "arabic": "خلاب"
+  },
+  {
+    "english": "ominous",
+    "arabic": "مشؤومة"
+  },
+  {
+    "english": "monitor",
+    "arabic": "شاشة"
+  },
+  {
+    "english": "beneficial",
+    "arabic": "نافع"
+  },
+  {
+    "english": "pursue",
+    "arabic": "يتحرى"
+  },
+  {
+    "english": "solitary",
+    "arabic": "الانفرادي"
+  },
+  {
+    "english": "terminate",
+    "arabic": "إنهاء"
+  },
+  {
+    "english": "negligible",
+    "arabic": "لا يكاد يذكر"
+  },
+  {
+    "english": "grip",
+    "arabic": "سيطرة"
+  },
+  {
+    "english": "thrive",
+    "arabic": "يزدهر"
+  },
+  {
+    "english": "summit",
+    "arabic": "قمة"
+  },
+  {
+    "english": "warn",
+    "arabic": "تحذير"
+  },
+  {
+    "english": "innate",
+    "arabic": "فطري"
+  },
+  {
+    "english": "notorious",
+    "arabic": "سيئة السمعة"
+  },
+  {
+    "english": "plausible",
+    "arabic": "معقول"
+  },
+  {
+    "english": "quest",
+    "arabic": "السعي"
+  },
+  {
+    "english": "remote",
+    "arabic": "بعيد"
+  },
+  {
+    "english": "abandon",
+    "arabic": "يتخلى عن"
+  },
+  {
+    "english": "mar",
+    "arabic": "مار"
+  },
+  {
+    "english": "dire",
+    "arabic": "رهيب"
+  },
+  {
+    "english": "mend",
+    "arabic": "إصلاح"
+  },
+  {
+    "english": "futile",
+    "arabic": "عديم الجدوى"
+  },
+  {
+    "english": "fasten",
+    "arabic": "ربط"
+  },
+  {
+    "english": "fundamental",
+    "arabic": "أساسي"
+  },
+  {
+    "english": "immense",
+    "arabic": "هائلة"
+  },
+  {
+    "english": "splendid",
+    "arabic": "رائع"
+  },
+  {
+    "english": "reckless",
+    "arabic": "متهور"
+  },
+  {
+    "english": "prevail",
+    "arabic": "تسود"
+  },
+  {
+    "english": "overcome",
+    "arabic": "يغلب"
+  },
+  {
+    "english": "crucail",
+    "arabic": "Crucail"
+  },
+  {
+    "english": "trait",
+    "arabic": "سمة"
+  },
+  {
+    "english": "tendious",
+    "arabic": "مغرد"
+  },
+  {
+    "english": "anxious",
+    "arabic": "قلق"
+  },
+  {
+    "english": "infinite",
+    "arabic": "لانهائي"
+  },
+  {
+    "english": "intense",
+    "arabic": "شديد"
+  },
+  {
+    "english": "refine",
+    "arabic": "صقل"
+  },
+  {
+    "english": "attain",
+    "arabic": "تحقيق"
+  },
+  {
+    "english": "grueling",
+    "arabic": "مرهقة"
+  },
+  {
+    "english": "harmful",
+    "arabic": "ضار"
+  },
+  {
+    "english": "lack",
+    "arabic": "نقص"
+  },
+  {
+    "english": "linger",
+    "arabic": "باقية"
+  },
+  {
+    "english": "peril",
+    "arabic": "خطر"
+  },
+  {
+    "english": "variable",
+    "arabic": "عامل"
+  },
+  {
+    "english": "dwell",
+    "arabic": "يسكن"
+  },
+  {
+    "english": "candid",
+    "arabic": "صريح"
+  },
+  {
+    "english": "objective",
+    "arabic": "موضوعي"
+  },
+  {
+    "english": "roam",
+    "arabic": "تجول"
+  },
+  {
+    "english": "overwhelm",
+    "arabic": "تطغى"
+  },
+  {
+    "english": "lag",
+    "arabic": "تأخر"
+  },
+  {
+    "english": "relish",
+    "arabic": "نكهة"
+  },
+  {
+    "english": "liable",
+    "arabic": "مسؤول"
+  },
+  {
+    "english": "stray",
+    "arabic": "طائشة"
+  }
+]

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ultimate Vocabulary Quiz</title>
+    <style>
+        body{font-family:Arial;background:#0d0d0d;color:white;text-align:center;padding:18px}
+        .container{max-width:900px;margin:auto;background:#1e1e1e;padding:20px;border-radius:12px}
+        #question{font-size:26px;margin:16px}
+        .option{display:block;width:100%;margin:8px 0;padding:12px;font-size:16px;border:none;border-radius:8px;cursor:pointer;background:#333;color:white}
+        .option:hover{background:#00c3ff;color:black}
+        #timer{font-size:20px;color:yellow}
+        #result{margin-top:10px;font-size:18px}
+        .score{font-size:18px;margin-top:10px}
+        .correct{color:lime}.wrong{color:red}
+        .topbar{display:flex;gap:10px;align-items:center;justify-content:space-between}
+        .user-area{display:flex;gap:8px;align-items:center}
+        input,select,textarea{padding:8px;border-radius:6px;border:1px solid #444;background:#111;color:white}
+        .small{font-size:13px;padding:6px}
+        .panel{background:#111;padding:12px;border-radius:8px;margin-top:12px;text-align:left}
+        .hidden{display:none}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="topbar">
+            <h2>🔥 Ultimate Vocabulary Quiz</h2>
+            <div class="user-area" id="authArea">
+                <!-- auth UI injected here -->
+            </div>
+        </div>
+
+        <div id="gameArea">
+            <div id="timer">30</div>
+            <div id="question"></div>
+            <div id="options"></div>
+            <div id="result"></div>
+            <div class="score">Score: <span id="score">0</span></div>
+            <div style="margin-top:10px">
+                <button onclick="restartGame()" class="small">Restart Game 🔄</button>
+                <button onclick="showLeaderboard()" class="small">Show Leaderboard 🏆</button>
+                <button onclick="showTranslator()" class="small">Translator 🔁</button>
+            </div>
+        </div>
+
+        <div id="managePanel" class="panel hidden">
+            <h3>Word Management</h3>
+            <div>
+                <input id="newEnglish" placeholder="English word/phrase" />
+                <input id="newArabic" placeholder="Meaning (Arabic)" />
+                <button onclick="addWord()" class="small">Add Word ➕</button>
+            </div>
+            <div id="wordsList" style="margin-top:10px;max-height:180px;overflow:auto"></div>
+        </div>
+
+        <div id="leaderboardPanel" class="panel hidden">
+            <h3>Leaderboard</h3>
+            <div id="leaderboardList"></div>
+        </div>
+
+        <div id="translatorPanel" class="panel hidden">
+            <h3>Translator</h3>
+            <div style="display:flex;gap:8px;align-items:center">
+                <input id="translateInput" placeholder="Type English or Arabic" style="flex:1" />
+                <button onclick="doTranslate()" class="small">Translate</button>
+            </div>
+            <div id="translateResults" style="margin-top:10px;max-height:200px;overflow:auto"></div>
+        </div>
+    </div>
+
+    <script>
+        // Words are loaded from `words.json` (preferred) or from `localStorage`.
+
+        // Local storage keys
+        const WORDS_KEY = 'vocab_words';
+        const USERS_KEY = 'vocab_users';
+        const BOARD_KEY = 'vocab_leaderboard';
+
+        // App state
+        let words = [];
+        let remaining = [];
+        let current = null;
+        let score = 0;
+        let timer = null;
+        let timeLeft = 30;
+        let currentUser = null; // {username}
+
+        // --- Persistence helpers ---
+        async function loadWords(){
+            // First try to fetch `words.json` from the server (preferred).
+            try{
+                const res = await fetch('words.json', {cache: 'no-store'});
+                if(res && res.ok){
+                    const j = await res.json();
+                    if(Array.isArray(j)){
+                        words = j;
+                        // save to localStorage so user additions persist
+                        localStorage.setItem(WORDS_KEY, JSON.stringify(words));
+                        return;
+                    }
+                }
+            }catch(e){ /* ignore fetch errors */ }
+
+            // If fetch failed or file missing, try localStorage last-saved list
+            const raw = localStorage.getItem(WORDS_KEY);
+            if(raw){
+                try{ words = JSON.parse(raw); return; }catch(e){}
+            }
+
+            // No words available
+            words = [];
+        }
+
+        function saveWords(){ localStorage.setItem(WORDS_KEY, JSON.stringify(words)); }
+
+        function loadUsers(){
+            const raw = localStorage.getItem(USERS_KEY);
+            try{ return raw?JSON.parse(raw):{} }catch(e){return{}};
+        }
+
+        function saveUsers(obj){ localStorage.setItem(USERS_KEY, JSON.stringify(obj)); }
+
+        function loadBoard(){
+            const raw = localStorage.getItem(BOARD_KEY);
+            try{ return raw?JSON.parse(raw):[] }catch(e){return[]}
+        }
+
+        function saveBoard(list){ localStorage.setItem(BOARD_KEY, JSON.stringify(list)); }
+
+        // --- Crypto helper to hash password ---
+        async function hashPassword(pw){
+            const enc = new TextEncoder().encode(pw);
+            const digest = await crypto.subtle.digest('SHA-256', enc);
+            return Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,'0')).join('');
+        }
+
+        // --- Auth ---
+        async function register(username, password){
+            const users = loadUsers();
+            if(!username || !password) return {ok:false,msg:'Provide username & password'};
+            if(users[username]) return {ok:false,msg:'Username exists'};
+            users[username] = {hash: await hashPassword(password)};
+            saveUsers(users);
+            return {ok:true};
+        }
+
+        async function login(username,password){
+            const users = loadUsers();
+            if(!users[username]) return {ok:false,msg:'No such user'};
+            const h = await hashPassword(password);
+            if(h !== users[username].hash) return {ok:false,msg:'Wrong password'};
+            currentUser = {username};
+            renderAuthArea();
+            return {ok:true};
+        }
+
+        function logout(){ currentUser = null; renderAuthArea(); }
+
+        // --- UI for auth ---
+        function renderAuthArea(){
+            const el = document.getElementById('authArea');
+            el.innerHTML = '';
+            if(!currentUser){
+                const loginBtn = document.createElement('button'); loginBtn.textContent='Login'; loginBtn.className='small';
+                loginBtn.onclick = ()=>showAuthDialog('login');
+                const regBtn = document.createElement('button'); regBtn.textContent='Register'; regBtn.className='small';
+                regBtn.onclick = ()=>showAuthDialog('register');
+                el.appendChild(regBtn); el.appendChild(loginBtn);
+            }else{
+                const span = document.createElement('span'); span.textContent = `User: ${currentUser.username}`;
+                const logoutBtn = document.createElement('button'); logoutBtn.textContent='Logout'; logoutBtn.className='small'; logoutBtn.onclick=logout;
+                const manageBtn = document.createElement('button'); manageBtn.textContent='Manage Words'; manageBtn.className='small';
+                manageBtn.onclick = ()=>{ document.getElementById('managePanel').classList.toggle('hidden'); renderWordsList(); };
+                el.appendChild(span); el.appendChild(manageBtn); el.appendChild(logoutBtn);
+            }
+        }
+
+        function showAuthDialog(mode){
+            const username = prompt('Username:');
+            if(!username) return;
+            const password = prompt('Password:');
+            if(!password) return;
+            (async ()=>{
+                if(mode==='register'){
+                    const r = await register(username,password);
+                    alert(r.ok? 'Registered. You can log in.': r.msg);
+                }else{
+                    const r = await login(username,password);
+                    alert(r.ok? 'Logged in': r.msg);
+                }
+            })();
+        }
+
+        // --- Word management ---
+        function addWord(){
+            if(!currentUser){ alert('Please login to add words'); return; }
+            const e = document.getElementById('newEnglish').value.trim();
+            const a = document.getElementById('newArabic').value.trim();
+            if(!e||!a){ alert('Both fields required'); return; }
+            words.push({english:e,arabic:a});
+            saveWords();
+            document.getElementById('newEnglish').value=''; document.getElementById('newArabic').value='';
+            renderWordsList();
+            resetGameWords();
+        }
+
+        function renderWordsList(){
+            const el = document.getElementById('wordsList'); el.innerHTML='';
+            words.slice().reverse().forEach((w,i)=>{
+                const d = document.createElement('div'); d.style.padding='6px 0';
+                d.textContent = `${w.english} — ${w.arabic}`;
+                el.appendChild(d);
+            });
+        }
+
+        // --- Leaderboard ---
+        function updateLeaderboard(username,score){
+            const list = loadBoard();
+            list.push({username,score,when:Date.now()});
+            list.sort((a,b)=>b.score-a.score||a.when-b.when);
+            saveBoard(list.slice(0,50));
+        }
+
+        function showLeaderboard(){
+            const panel = document.getElementById('leaderboardPanel'); panel.classList.remove('hidden');
+            const list = loadBoard();
+            const el = document.getElementById('leaderboardList');
+            el.innerHTML = '';
+            if(list.length===0){ el.textContent='No entries yet.'; return; }
+            list.slice(0,20).forEach((r,idx)=>{
+                const d = document.createElement('div'); d.style.padding='6px 0';
+                d.textContent = `${idx+1}. ${r.username} — ${r.score}`;
+                el.appendChild(d);
+            });
+        }
+
+        // --- Game logic ---
+        function resetGameWords(){ remaining = words.slice(); }
+
+        function startTimer(){ clearInterval(timer); timeLeft = 30; document.getElementById('timer').innerText = timeLeft;
+            timer = setInterval(()=>{
+                timeLeft--; document.getElementById('timer').innerText = timeLeft;
+                if(timeLeft<=0){ clearInterval(timer); showAnswer(false); }
+            },1000);
+        }
+
+        function nextWord(){
+            if(remaining.length===0){
+                document.getElementById('question').innerHTML = '🎉 Game Finished!';
+                document.getElementById('options').innerHTML = '';
+                if(currentUser) updateLeaderboard(currentUser.username, score);
+                return;
+            }
+            startTimer();
+            const idx = Math.floor(Math.random()*remaining.length);
+            current = remaining.splice(idx,1)[0];
+            document.getElementById('question').innerText = `Meaning of: "${current.english}"`;
+            let opts = [current.arabic];
+            while(opts.length<4){ const r = words[Math.floor(Math.random()*words.length)].arabic; if(!opts.includes(r)) opts.push(r); }
+            opts.sort(()=>Math.random()-0.5);
+            const box = document.getElementById('options'); box.innerHTML=''; document.getElementById('result').innerHTML='';
+            opts.forEach(o=>{ const b=document.createElement('button'); b.className='option'; b.innerText=o; b.onclick=()=>showAnswer(o===current.arabic); box.appendChild(b); });
+        }
+
+        function playSound(type){ try{ const ctx=new (window.AudioContext||window.webkitAudioContext)(); const osc=ctx.createOscillator(); const gain=ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination); osc.type='sine'; osc.frequency.value = type==='correct'?750:180; gain.gain.value=0.05; osc.start(); setTimeout(()=>osc.stop(),200); }catch(e){} }
+
+        function showAnswer(correct){ clearInterval(timer); if(correct){ score++; playSound('correct'); document.getElementById('result').innerHTML = `✅ Correct! = ${current.arabic}`; document.getElementById('result').className='correct'; } else { playSound('wrong'); document.getElementById('result').innerHTML = `❌ Correct answer: ${current.arabic}`; document.getElementById('result').className='wrong'; }
+            document.getElementById('score').innerText = score; setTimeout(nextWord,900);
+        }
+
+        function restartGame(){ score=0; document.getElementById('score').innerText=0; resetGameWords(); nextWord(); }
+
+        // --- Translator ---
+        function showTranslator(){
+            const p = document.getElementById('translatorPanel');
+            p.classList.toggle('hidden');
+            const input = document.getElementById('translateInput');
+            if(!p.classList.contains('hidden')) setTimeout(()=>input.focus(),80);
+        }
+
+        function doTranslate(){
+            const q = document.getElementById('translateInput').value.trim().toLowerCase();
+            const out = document.getElementById('translateResults');
+            out.innerHTML = '';
+            if(!q){ out.textContent = 'Type a word or phrase to translate.'; return; }
+            const matches = words.filter(w=> w.english.toLowerCase().includes(q) || w.arabic.toLowerCase().includes(q));
+            if(matches.length===0){ out.textContent = 'No match found in current word list.'; return; }
+            out.innerHTML = matches.map(m=>`<div style="padding:6px 0">${m.english} — ${m.arabic}</div>`).join('');
+        }
+
+        // --- Init ---
+        async function init(){
+            await loadWords();
+            renderAuthArea();
+            if(words.length === 0){
+                document.getElementById('question').innerText = 'No words loaded. Add a words.json file or add words via Manage Words (login required).';
+                document.getElementById('options').innerHTML = '';
+                document.getElementById('result').innerHTML = '';
+                return;
+            }
+            resetGameWords();
+            nextWord();
+        }
+
+        // Expose some functions for buttons
+        window.restartGame = restartGame;
+        window.addWord = addWord;
+        window.showLeaderboard = showLeaderboard;
+
+        init();
+    </script>
+</body>
+</html>
