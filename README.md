@@ -25,5 +25,5 @@ Pages:
 
 Notes:
 - The app is designed to work as a static GitHub Pages site: features such as name-only login, adding words, and the leaderboard are stored in the browser's `localStorage` so they work without a server.
-- If you run the provided Flask server (`app.py`) the server will persist `words.json`, `users.json`, and `leaderboard.json` on the filesystem. Running a server is optional.
+- An optional server is available under the `server/` folder (Flask) if you want server-side persistence. For GitHub Pages, leave `server/` alone and the root will be served as static files.
 # vocab-quiz

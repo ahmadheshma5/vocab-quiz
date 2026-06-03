@@ -20,7 +20,7 @@ def write_json(path, obj):
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(obj, f, ensure_ascii=False, indent=2)
 
-app = Flask(__name__, static_folder='.', static_url_path='')
+app = Flask(__name__, static_folder='..', static_url_path='')
 app.secret_key = 'dev-secret-change-me'
 
 @app.route('/api/words', methods=['GET','POST'])
@@ -101,7 +101,7 @@ def api_leaderboard():
 
 @app.route('/')
 def index():
-    return send_from_directory('.', 'quiz.html')
+    return send_from_directory('..', 'quiz.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
