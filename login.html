@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login / Register</title>
+  <style>
+    body{font-family:Arial;background:#0d0d0d;color:white;padding:24px}
+    .card{max-width:420px;margin:40px auto;padding:18px;background:#1e1e1e;border-radius:10px}
+    input{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:1px solid #444;background:#111;color:white}
+    button{padding:10px 12px;margin-right:8px}
+    a{color:#00c3ff}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Login or Register</h2>
+    <div>
+      <input id="username" placeholder="Username" />
+      <input id="password" type="password" placeholder="Password" />
+    </div>
+    <div style="margin-top:8px">
+      <button onclick="doLogin()">Login</button>
+      <button onclick="doRegister()">Register</button>
+      <button onclick="back()">Back</button>
+    </div>
+    <p style="margin-top:12px;font-size:13px;color:#ccc">Simple name-only login for GitHub Pages (no password, stored locally in your browser).</p>
+  </div>
+
+  <script>
+    function doRegister(){
+      alert('Registration not required. Just log in with a name.');
+    }
+
+    function doLogin(){
+      const u = document.getElementById('username').value.trim();
+      if(!u){ alert('Enter a name'); return; }
+      localStorage.setItem('vocab_currentUser', u);
+      alert('Logged in as ' + u);
+      window.location = 'quiz.html';
+    }
+
+    function back(){ window.location = 'quiz.html'; }
+  </script>
+</body>
+</html>

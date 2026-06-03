@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leaderboard</title>
+  <style>
+    body{font-family:Arial;background:#0d0d0d;color:white;padding:20px}
+    .card{max-width:720px;margin:24px auto;padding:14px;background:#1e1e1e;border-radius:8px}
+    .item{padding:8px;border-bottom:1px solid #222}
+    button{padding:8px 10px;margin-right:8px}
+    a{color:#00c3ff}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Leaderboard</h2>
+    <div id="list"></div>
+    <div style="margin-top:12px">
+      <button onclick="goBack()">Back to Quiz</button>
+      <button onclick="clearBoard()">Clear Leaderboard</button>
+    </div>
+  </div>
+
+  <script>
+    function loadBoard(){ const raw=localStorage.getItem('vocab_leaderboard'); try{ return raw?JSON.parse(raw):[] }catch(e){return[]}};
+    function saveBoard(b){ localStorage.setItem('vocab_leaderboard', JSON.stringify(b)); }
+
+    function render(){
+      const el = document.getElementById('list'); el.innerHTML='';
+      const list = loadBoard();
+      if(list.length===0){ el.textContent='No scores yet.'; return; }
+      list.slice(0,100).forEach((r,idx)=>{ const d=document.createElement('div'); d.className='item'; d.textContent = `${idx+1}. ${r.username} — ${r.score}`; el.appendChild(d); });
+    }
+
+    function goBack(){ window.location='quiz.html' }
+    function clearBoard(){ if(!confirm('Clear leaderboard?')) return; saveBoard([]); render(); }
+    render();
+  </script>
+</body>
+</html>

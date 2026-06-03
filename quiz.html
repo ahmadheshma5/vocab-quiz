@@ -31,6 +31,11 @@
             </div>
         </div>
 
+        <div id="leaderboardTop" class="panel">
+            <h3>Leaderboard</h3>
+            <div id="leaderboardTopList"></div>
+        </div>
+
         <div id="gameArea">
             <div id="timer">30</div>
             <div id="question"></div>
@@ -55,7 +60,7 @@
         </div>
 
         <div id="leaderboardPanel" class="panel hidden">
-            <h3>Leaderboard</h3>
+            <h3>Leaderboard (detailed)</h3>
             <div id="leaderboardList"></div>
         </div>
 
@@ -84,35 +89,40 @@
         let score = 0;
         let timer = null;
         let timeLeft = 30;
-        let currentUser = null; // {username}
+        let currentUser = null; // populated from server
+
 
         // --- Persistence helpers ---
         async function loadWords(){
-            // First try to fetch `words.json` from the server (preferred).
+            // Primary: try to load the shipped words.json (works on GitHub Pages)
             try{
-                const res = await fetch('words.json', {cache: 'no-store'});
+                const res = await fetch('words.json', {cache:'no-store'});
                 if(res && res.ok){
                     const j = await res.json();
-                    if(Array.isArray(j)){
-                        words = j;
-                        // save to localStorage so user additions persist
-                        localStorage.setItem(WORDS_KEY, JSON.stringify(words));
-                        return;
-                    }
+                    if(Array.isArray(j)) words = j.slice();
                 }
-            }catch(e){ /* ignore fetch errors */ }
+            }catch(e){ /* ignore */ }
 
-            // If fetch failed or file missing, try localStorage last-saved list
-            const raw = localStorage.getItem(WORDS_KEY);
-            if(raw){
-                try{ words = JSON.parse(raw); return; }catch(e){}
+            // Then append any user-added words stored in localStorage
+            const rawLocal = localStorage.getItem(WORDS_KEY);
+            if(rawLocal){
+                try{
+                    const localWords = JSON.parse(rawLocal);
+                    if(Array.isArray(localWords)){
+                        // merge: user-added words appended after shipped words
+                        words = (words || []).concat(localWords);
+                    }
+                }catch(e){}
             }
 
-            // No words available
-            words = [];
+            if(!words) words = [];
         }
 
-        function saveWords(){ localStorage.setItem(WORDS_KEY, JSON.stringify(words)); }
+        function saveWords(){
+            // Save only user-added words (those not in shipped words.json)
+            // For simplicity we store the entire current list to localStorage so it persists for the user.
+            try{ localStorage.setItem(WORDS_KEY, JSON.stringify(words || [])); }catch(e){}
+        }
 
         function loadUsers(){
             const raw = localStorage.getItem(USERS_KEY);
@@ -135,38 +145,28 @@
             return Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,'0')).join('');
         }
 
-        // --- Auth ---
-        async function register(username, password){
-            const users = loadUsers();
-            if(!username || !password) return {ok:false,msg:'Provide username & password'};
-            if(users[username]) return {ok:false,msg:'Username exists'};
-            users[username] = {hash: await hashPassword(password)};
-            saveUsers(users);
-            return {ok:true};
-        }
-
-        async function login(username,password){
-            const users = loadUsers();
-            if(!users[username]) return {ok:false,msg:'No such user'};
-            const h = await hashPassword(password);
-            if(h !== users[username].hash) return {ok:false,msg:'Wrong password'};
+        // --- Auth (name-only, local) ---
+        function loginByName(username){
+            if(!username) return false;
             currentUser = {username};
+            try{ localStorage.setItem('vocab_currentUser', username); }catch(e){}
             renderAuthArea();
-            return {ok:true};
+            return true;
         }
 
-        function logout(){ currentUser = null; renderAuthArea(); }
+        function logout(){ currentUser = null; try{ localStorage.removeItem('vocab_currentUser'); }catch(e){} renderAuthArea(); }
 
         // --- UI for auth ---
         function renderAuthArea(){
             const el = document.getElementById('authArea');
             el.innerHTML = '';
             if(!currentUser){
-                const loginBtn = document.createElement('button'); loginBtn.textContent='Login'; loginBtn.className='small';
-                loginBtn.onclick = ()=>showAuthDialog('login');
-                const regBtn = document.createElement('button'); regBtn.textContent='Register'; regBtn.className='small';
-                regBtn.onclick = ()=>showAuthDialog('register');
-                el.appendChild(regBtn); el.appendChild(loginBtn);
+                const loginBtn = document.createElement('button'); loginBtn.textContent='Login (name)'; loginBtn.className='small';
+                loginBtn.onclick = ()=>{
+                    const name = prompt('Enter your name to login:');
+                    if(name) loginByName(name.trim());
+                };
+                el.appendChild(loginBtn);
             }else{
                 const span = document.createElement('span'); span.textContent = `User: ${currentUser.username}`;
                 const logoutBtn = document.createElement('button'); logoutBtn.textContent='Logout'; logoutBtn.className='small'; logoutBtn.onclick=logout;
@@ -176,34 +176,25 @@
             }
         }
 
+        // showAuthDialog kept for compatibility; open inline name-prompt
         function showAuthDialog(mode){
-            const username = prompt('Username:');
-            if(!username) return;
-            const password = prompt('Password:');
-            if(!password) return;
-            (async ()=>{
-                if(mode==='register'){
-                    const r = await register(username,password);
-                    alert(r.ok? 'Registered. You can log in.': r.msg);
-                }else{
-                    const r = await login(username,password);
-                    alert(r.ok? 'Logged in': r.msg);
-                }
-            })();
-            
+            const name = prompt('Enter your name to login:');
+            if(name) loginByName(name.trim());
         }
 
         // --- Word management ---
-        function addWord(){
-            if(!currentUser){ alert('Please login to add words'); return; }
+        async function addWord(){
+            if(!currentUser){ alert('Please login to add words'); showAuthDialog(); return; }
             const e = document.getElementById('newEnglish').value.trim();
             const a = document.getElementById('newArabic').value.trim();
             if(!e||!a){ alert('Both fields required'); return; }
+            // Add locally (works on GitHub Pages). Persist to localStorage.
             words.push({english:e,arabic:a});
             saveWords();
             document.getElementById('newEnglish').value=''; document.getElementById('newArabic').value='';
             renderWordsList();
             resetGameWords();
+            renderLeaderboard();
         }
 
         function renderWordsList(){
@@ -220,16 +211,18 @@
             const list = loadBoard();
             list.push({username,score,when:Date.now()});
             list.sort((a,b)=>b.score-a.score||a.when-b.when);
-            saveBoard(list.slice(0,50));
+            const top = list.slice(0,50);
+            saveBoard(top);
+            renderLeaderboard();
         }
 
         function showLeaderboard(){
-            const panel = document.getElementById('leaderboardPanel'); panel.classList.remove('hidden');
+            const panel = document.getElementById('leaderboardPanel'); panel.classList.toggle('hidden');
             const list = loadBoard();
             const el = document.getElementById('leaderboardList');
             el.innerHTML = '';
             if(list.length===0){ el.textContent='No entries yet.'; return; }
-            list.slice(0,20).forEach((r,idx)=>{
+            list.slice(0,50).forEach((r,idx)=>{
                 const d = document.createElement('div'); d.style.padding='6px 0';
                 d.textContent = `${idx+1}. ${r.username} — ${r.score}`;
                 el.appendChild(d);
@@ -267,7 +260,18 @@
         function playSound(type){ try{ const ctx=new (window.AudioContext||window.webkitAudioContext)(); const osc=ctx.createOscillator(); const gain=ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination); osc.type='sine'; osc.frequency.value = type==='correct'?750:180; gain.gain.value=0.05; osc.start(); setTimeout(()=>osc.stop(),200); }catch(e){} }
 
         function showAnswer(correct){ clearInterval(timer); if(correct){ score++; playSound('correct'); document.getElementById('result').innerHTML = `✅ Correct! = ${current.arabic}`; document.getElementById('result').className='correct'; } else { playSound('wrong'); document.getElementById('result').innerHTML = `❌ Correct answer: ${current.arabic}`; document.getElementById('result').className='wrong'; }
-            document.getElementById('score').innerText = score; setTimeout(nextWord,900);
+            if(correct){
+                document.getElementById('score').innerText = score;
+                setTimeout(nextWord,900);
+            }else{
+                // On wrong answer: submit current score (if logged in), reset score to 0, and end round
+                if(currentUser && score>0){ updateLeaderboard(currentUser.username, score); }
+                score = 0;
+                document.getElementById('score').innerText = score;
+                // show game over and stop the round
+                document.getElementById('question').innerText = '💥 Game Over - Incorrect!';
+                document.getElementById('options').innerHTML = '';
+            }
         }
 
         function restartGame(){ score=0; document.getElementById('score').innerText=0; resetGameWords(); nextWord(); }
@@ -290,10 +294,25 @@
             out.innerHTML = matches.map(m=>`<div style="padding:6px 0">${m.english} — ${m.arabic}</div>`).join('');
         }
 
+        // --- Leaderboard rendering for top area ---
+        function renderLeaderboard(){
+            const topEl = document.getElementById('leaderboardTopList');
+            topEl.innerHTML = '';
+            const list = loadBoard();
+            if(!list || list.length===0){ topEl.textContent = 'No scores yet.'; return; }
+            list.slice(0,10).forEach((r,idx)=>{
+                const d = document.createElement('div'); d.style.padding='4px 0'; d.textContent = `${idx+1}. ${r.username} — ${r.score}`; topEl.appendChild(d);
+            });
+        }
+
         // --- Init ---
         async function init(){
             await loadWords();
+            // load local-only current user (name-only login)
+            const saved = localStorage.getItem('vocab_currentUser');
+            if(saved) currentUser = {username: saved};
             renderAuthArea();
+            renderLeaderboard();
             if(words.length === 0){
                 document.getElementById('question').innerText = 'No words loaded. Add a words.json file or add words via Manage Words (login required).';
                 document.getElementById('options').innerHTML = '';
